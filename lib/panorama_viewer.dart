@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_cube/flutter_cube.dart';
-import 'package:dchs_motion_sensors/dchs_motion_sensors.dart';
+// import 'package:dchs_motion_sensors/dchs_motion_sensors.dart';
 
 enum SensorControl {
   /// No sensor used.
@@ -294,37 +294,37 @@ class PanoramaState extends State<PanoramaViewer>
     _streamController.add(null);
   }
 
-  void _updateSensorControl() {
-    _orientationSubscription?.cancel();
-
-    switch (widget.sensorControl) {
-      case SensorControl.orientation:
-        motionSensors.orientationUpdateInterval =
-            Duration.microsecondsPerSecond ~/ 60;
-        _orientationSubscription =
-            motionSensors.orientation.listen((OrientationEvent event) {
-          orientation.setValues(event.yaw, event.pitch, event.roll);
-        });
-        break;
-      case SensorControl.absoluteOrientation:
-        motionSensors.absoluteOrientationUpdateInterval =
-            Duration.microsecondsPerSecond ~/ 60;
-        _orientationSubscription = motionSensors.absoluteOrientation
-            .listen((AbsoluteOrientationEvent event) {
-          orientation.setValues(event.yaw, event.pitch, event.roll);
-        });
-        break;
-      default:
-    }
-
-    _screenOrientSubscription?.cancel();
-    if (widget.sensorControl != SensorControl.none) {
-      _screenOrientSubscription = motionSensors.screenOrientation
-          .listen((ScreenOrientationEvent event) {
-        screenOrientation = radians(event.angle!);
-      });
-    }
-  }
+  // void _updateSensorControl() {
+  //   _orientationSubscription?.cancel();
+  //
+  //   switch (widget.sensorControl) {
+  //     case SensorControl.orientation:
+  //       motionSensors.orientationUpdateInterval =
+  //           Duration.microsecondsPerSecond ~/ 60;
+  //       _orientationSubscription =
+  //           motionSensors.orientation.listen((OrientationEvent event) {
+  //         orientation.setValues(event.yaw, event.pitch, event.roll);
+  //       });
+  //       break;
+  //     case SensorControl.absoluteOrientation:
+  //       motionSensors.absoluteOrientationUpdateInterval =
+  //           Duration.microsecondsPerSecond ~/ 60;
+  //       _orientationSubscription = motionSensors.absoluteOrientation
+  //           .listen((AbsoluteOrientationEvent event) {
+  //         orientation.setValues(event.yaw, event.pitch, event.roll);
+  //       });
+  //       break;
+  //     default:
+  //   }
+  //
+  //   _screenOrientSubscription?.cancel();
+  //   if (widget.sensorControl != SensorControl.none) {
+  //     _screenOrientSubscription = motionSensors.screenOrientation
+  //         .listen((ScreenOrientationEvent event) {
+  //       screenOrientation = radians(event.angle!);
+  //     });
+  //   }
+  // }
 
   void _updateTexture(ImageInfo imageInfo, bool synchronousCall) {
     surface?.mesh.texture = imageInfo.image;
@@ -442,7 +442,7 @@ class PanoramaState extends State<PanoramaViewer>
     _streamController = StreamController<Null>.broadcast();
     _stream = _streamController.stream;
 
-    _updateSensorControl();
+    // _updateSensorControl();
 
     _controller = AnimationController(
         duration: Duration(milliseconds: 60000), vsync: this)
@@ -481,9 +481,9 @@ class PanoramaState extends State<PanoramaViewer>
     if (widget.child?.image != oldWidget.child?.image) {
       _loadTexture(widget.child?.image);
     }
-    if (widget.sensorControl != oldWidget.sensorControl) {
-      _updateSensorControl();
-    }
+    // if (widget.sensorControl != oldWidget.sensorControl) {
+    //   _updateSensorControl();
+    // }
   }
 
   @override

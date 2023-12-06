@@ -11,7 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cube: ^0.1.1
-  dchs_motion_sensors: ^1.0.1
+
+  #HintAzuma comment out
+#  dchs_motion_sensors: ^1.0.1
 
 dev_dependencies:
   flutter_test:
